@@ -1,7 +1,7 @@
 <template>
-  <TopNav :cartItemCount="cartItemCount"/>
+  <TopNav :cartItemCount="cartItemCount" @filterCategory="setCategory"/>
   <router-view
-    :products="products"
+    :products="filteredProducts"
     :cartItems="cartItems"
     @addToCart="addToCart"
     @removeFromCart="removeFromCart"
@@ -21,6 +21,7 @@ export default {
     return {
       cartItems: [],
       products: [],
+      selectedCategory: 'All'
     }
   },
   computed: {
@@ -28,12 +29,30 @@ export default {
       return this.cartItems.reduce((total, item) => {
         return total + item.quantity
       }, 0)
+    },
+    filteredProducts() {
+      if (this.selectedCategory === 'All') return this.products
+      const keywords = {
+        'TVs':        ['TV', 'QLED', 'OLED Television'],
+        'Computers':  ['MacBook', 'Dell', 'Monitor', 'Laptop'],
+        'Phones':     ['iPhone', 'Galaxy S'],
+        'Headphones': ['Headphones', 'Earbuds'],
+        'Gaming':     ['PlayStation', 'Nintendo', 'Switch', 'Xbox'],
+        'Tablets':    ['iPad']
+      }
+      const terms = keywords[this.selectedCategory] || []
+      return this.products.filter(p =>
+        terms.some(term => p.name.includes(term))
+      )
     }
   },
   mounted() {
     this.getProducts()
   },
   methods: {
+    setCategory(cat) {
+      this.selectedCategory = cat
+    },
     getProducts() {
       fetch('/products')
         .then(response => response.json())
@@ -109,7 +128,7 @@ export default {
 
 <style>
 body {
-  background-image: url('@/assets/algonquin.jpg');
+  background-color: #f5f5f5;
   background-size: cover;
   background-position: center;
   background-attachment: fixed; /* Keeps the background in place when scrolling */
@@ -123,7 +142,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 120px;
+  margin-top: 160px;
 }
 
 footer {
@@ -131,7 +150,7 @@ footer {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #0a5620;
+  background-color: #003087;
   color: #fff;
   padding: 1rem;
   margin: 0;
