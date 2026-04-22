@@ -75,4 +75,13 @@
 .shop-all-btn:hover {
   background-color: #003099;
 }
+
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
+  max-width: 1400px;
+  margin: 0 auto 3rem auto;
+  padding: 0 2rem;
+}
 </style>
