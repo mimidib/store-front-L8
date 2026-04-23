@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Blue background -->
+  <rect width="32" height="32" rx="4" fill="#0046BE"/>
+  <!-- Yellow price tag -->
+  <path d="M10 8h9.5a1 1 0 0 1 .7.3l5.5 5.5a1 1 0 0 1 0 1.4l-7.5 7.5a1 1 0 0 1-1.4 0l-6.8-6.8A1 1 0 0 1 9.8 15L9 9a1 1 0 0 1 1-1z" fill="#FFE000"/>
+  <!-- Hole in tag -->
+  <circle cx="12" cy="11" r="1.2" fill="#0046BE"/>
+</svg>
